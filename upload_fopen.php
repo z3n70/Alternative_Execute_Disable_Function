@@ -3,14 +3,12 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_FILES['file_upload'])) {
     $file = $_FILES['file_upload'];
 
     if ($file['error'] === UPLOAD_ERR_OK) {
-        $targetDirectory = 'uploads/'; // Ganti dengan direktori tujuan di server
+        $targetDirectory = './'; 
         $targetPath = $targetDirectory . basename($file['name']);
 
-        // Pindahkan file yang diunggah dari direktori sementara ke lokasi tujuan
         if (move_uploaded_file($file['tmp_name'], $targetPath)) {
             echo "File berhasil diunggah dan disimpan dengan nama: " . $file['name'];
 
-            // Buka file tujuan untuk menulis data ke dalamnya dengan fopen()
             $fileHandle = fopen($targetPath, 'wb');
             if ($fileHandle) {
                 $content = "Contoh isi file.";
